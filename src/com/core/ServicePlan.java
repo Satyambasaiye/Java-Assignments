@@ -15,6 +15,6 @@ public enum ServicePlan {
 
 	@Override
 	public String toString() {
-		return name() + " " + planCost;
+		return  planCost+ " "+name() ;
 	}
 }

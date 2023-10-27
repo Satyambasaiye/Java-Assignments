@@ -1,4 +1,4 @@
-package com.core;
+package Custome_exceptions;
 
 public class CustomException extends Exception {
 
