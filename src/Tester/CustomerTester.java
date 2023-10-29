@@ -1,6 +1,9 @@
 package Tester;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 import static utils.CustomerUtils.*;
 import static utils.ValidationRules.*;
 import java.util.List;
@@ -8,14 +11,17 @@ import java.util.Scanner;
 import com.core.Customer;
 import com.core.ServicePlan;
 
+import customeOrdering.OrderByDob;
+
 
 public class CustomerTester {
 	public static void main(String[] args) {
 		try (Scanner sc = new Scanner(System.in)) {
-			List<Customer> customerArr = new ArrayList<Customer>();
+			List<Customer> customerArr =sampleData();
 			boolean exit = false;
 			while (!exit) {
-				System.out.println("1:Sign up\n2:logg in \n3:Change password\n4:Remove Customer \n5:display all \n0:exit");
+				System.out.println("1:Sign up\n2:logg in \n3:Change password\n4:Remove Customer \n5:display all ");
+				System.out.println("6:sort by email \n7:sort by dob \n8:sort by dob and name\n0:exit");
 				System.out.print("enter choice:");
 				try {
 					switch (sc.nextInt()) {
@@ -25,7 +31,7 @@ public class CustomerTester {
 						for(ServicePlan s:ServicePlan.values())
 							System.out.println(s);
 						customerArr.add(validateAll(sc.next(), sc.next(), sc.next(), sc.next(), sc.nextDouble(),
-								sc.next(), sc.next().toUpperCase()));
+								sc.next(), sc.next().toUpperCase(),customerArr));
 						System.out.println("welcome to customer application");
 						break;
 					case 2:
@@ -47,6 +53,24 @@ public class CustomerTester {
 						for (Customer i : customerArr)
 							System.out.println(i);
 						break;
+					case 6:
+						Collections.sort(customerArr);
+						break;
+					case 7:
+						Collections.sort(customerArr,new OrderByDob());
+						break;
+					case 8:
+						Collections.sort(customerArr,new Comparator<Customer>()
+								{
+									@Override
+									public int compare(Customer obj1,Customer obj2) {
+										if(obj1.getDob().equals(obj2.getDob())){
+											return obj1.getfName().compareTo(obj2.getfName());
+										}
+										return obj1.getDob().compareTo(obj2.getDob());
+									}
+								});
+						break;
 					case 0:
 						System.out.println("------------Thank you!!!---------");
 						exit = true;
@@ -56,7 +80,7 @@ public class CustomerTester {
 					}
 				} catch (Exception e) {
 					System.out.println(e);
-//					e.printStackTrace();
+					e.printStackTrace();
 					sc.nextLine();
 					System.out.println("please try again !!!");
 				}

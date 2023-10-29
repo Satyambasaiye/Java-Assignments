@@ -1,9 +1,9 @@
 package utils;
 
 import java.time.LocalDate;
-import static utils.CustomerUtils.findByEmail;
 import com.core.Customer;
 import java.util.*;
+import static utils.CustomerUtils.*;
 import com.core.ServicePlan;
 
 import Custome_exceptions.CustomException;
@@ -36,10 +36,10 @@ public class ValidationRules {
 
 //validate all inputes
 	public static Customer validateAll(String fName, String lName, String email, String password, double regAmount,
-			String dob, String plan) throws CustomException, IllegalArgumentException
+			String dob, String plan,List<Customer>list) throws CustomException, IllegalArgumentException
 
 	{
-		return new Customer(fName, lName, email, password, ValidateRegAmount(plan, regAmount), LocalDate.parse(dob),
+		return new Customer(fName, lName, duplicateCustomer(email,list), password, ValidateRegAmount(plan, regAmount), LocalDate.parse(dob),
 				validatePlan(plan));
 	}
 }
