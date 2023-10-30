@@ -1,37 +1,34 @@
 package Tester;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
+import java.util.*;
+import com.core.*;
 import static utils.CustomerUtils.*;
 import static utils.ValidationRules.*;
-import java.util.List;
-import java.util.Scanner;
-import com.core.Customer;
-import com.core.ServicePlan;
-
+import static admin.Admin.*;
 import customeOrdering.OrderByDob;
-
 
 public class CustomerTester {
 	public static void main(String[] args) {
 		try (Scanner sc = new Scanner(System.in)) {
-			List<Customer> customerArr =sampleData();
+			List<Customer> customerArr = sampleData();
 			boolean exit = false;
 			while (!exit) {
-				System.out.println("1:Sign up\n2:logg in \n3:Change password\n4:Remove Customer \n5:display all ");
-				System.out.println("6:sort by email \n7:sort by dob \n8:sort by dob and name\n0:exit");
+				System.out.println("\n1:Sign up\n2:logg in \n3:Change password\n4:Remove Customer \n5:display all ");
+				System.out.println(
+						"6:sort by email \n7:sort by dob \n8:sort by dob and name \n9:not paid substrion for 3 months");
+				System.out.println("10 remove cust not paid subscription for 6 months\n0:exit");
 				System.out.print("enter choice:");
 				try {
 					switch (sc.nextInt()) {
 					case 1:
 						System.out.println("enter First name,last name,email,password,registration amount,DOB,plan");
 						System.out.println("available plans");
-						for(ServicePlan s:ServicePlan.values())
+						for (ServicePlan s : ServicePlan.values())
 							System.out.println(s);
 						customerArr.add(validateAll(sc.next(), sc.next(), sc.next(), sc.next(), sc.nextDouble(),
-								sc.next(), sc.next().toUpperCase(),customerArr));
+								sc.next(), sc.next().toUpperCase(), sc.next(), customerArr));
 						System.out.println("welcome to customer application");
 						break;
 					case 2:
@@ -57,27 +54,35 @@ public class CustomerTester {
 						Collections.sort(customerArr);
 						break;
 					case 7:
-						Collections.sort(customerArr,new OrderByDob());
+						Collections.sort(customerArr, new OrderByDob());
 						break;
 					case 8:
-						Collections.sort(customerArr,new Comparator<Customer>()
-								{
-									@Override
-									public int compare(Customer obj1,Customer obj2) {
-										if(obj1.getDob().equals(obj2.getDob())){
-											return obj1.getfName().compareTo(obj2.getfName());
-										}
-										return obj1.getDob().compareTo(obj2.getDob());
-									}
-								});
+						Collections.sort(customerArr, new Comparator<Customer>() {
+							@Override
+							public int compare(Customer obj1, Customer obj2) {
+								if (obj1.getDob().equals(obj2.getDob())) {
+									return obj1.getfName().compareTo(obj2.getfName());
+								}
+								return obj1.getDob().compareTo(obj2.getDob());
+							}
+						});
 						break;
+					case 9:
+						notPaidSubscription(customerArr);
+						break;
+					case 10:
+						removeNotPaidSubscription(customerArr);
+						break;
+
 					case 0:
 						System.out.println("------------Thank you!!!---------");
 						exit = true;
 						break;
+
 					default:
 						System.out.println("invalid choice try again !!!");
 					}
+					System.out.println("-----------------------------------------------------------------------------");
 				} catch (Exception e) {
 					System.out.println(e);
 					e.printStackTrace();
