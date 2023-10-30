@@ -21,6 +21,7 @@ public class ValidationRules {
 		}
 		return regAmt;
 	}
+	
 
 //validate customere
 	public static boolean validateCustomer(String email, String password, List<Customer> list) throws CustomException {
@@ -36,10 +37,11 @@ public class ValidationRules {
 
 //validate all inputes
 	public static Customer validateAll(String fName, String lName, String email, String password, double regAmount,
-			String dob, String plan,List<Customer>list) throws CustomException, IllegalArgumentException
+			String dob, String plan,String subdate ,List<Customer>list) throws CustomException, IllegalArgumentException
 
 	{
+		LocalDate lastSubscriptionPaidDate=LocalDate.now();
 		return new Customer(fName, lName, duplicateCustomer(email,list), password, ValidateRegAmount(plan, regAmount), LocalDate.parse(dob),
-				validatePlan(plan));
+				validatePlan(plan),lastSubscriptionPaidDate);
 	}
 }

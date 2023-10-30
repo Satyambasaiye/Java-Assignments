@@ -14,9 +14,10 @@ public class Customer implements Comparable<Customer> {
 	private double regAmount;
 	private LocalDate dob;
 	private ServicePlan plan;
+	private LocalDate lastSubscriptionPaidDate;
 
 	public Customer(String fName, String lName, String email, String password, double regAmount, LocalDate dob,
-			ServicePlan plan) {
+			ServicePlan plan, LocalDate lastSubscriptionPaidDate) {
 		super();
 		this.customerId = accid++;
 		this.fName = fName;
@@ -26,20 +27,39 @@ public class Customer implements Comparable<Customer> {
 		this.regAmount = regAmount;
 		this.dob = dob;
 		this.plan = plan;
+		this.lastSubscriptionPaidDate = lastSubscriptionPaidDate;
 	}
+
+	public LocalDate getLastSubscriptionPaidDate() {
+		return lastSubscriptionPaidDate;
+	}
+
+	public void setLastSubscriptionPaidDate(LocalDate lastSubscriptionPaidDate) {
+		this.lastSubscriptionPaidDate = lastSubscriptionPaidDate;
+	}
+
+	public static int getAccid() {
+		return accid;
+	}
+
+	public int getCustomerId() {
+		return customerId;
+	}
+
 	@Override
-	public   int compareTo(Customer obj) {
-		
+	public int compareTo(Customer obj) {
+
 		return this.email.compareTo(obj.email);
 	}
+
 	public Customer(String email) {
 		this.email = email;
 	}
 
 	@Override
 	public String toString() {
-		return "Customer [customerId=" + customerId + ", fName=" + fName + ", lName=" + lName + ", email=" + email
-				+ ", regAmount=" + regAmount + ", dob=" + dob + ", plan=" + plan + "]";
+		return "cust.Id=" + customerId + ", Name=" + fName + " " + lName + ", email=" + email + ", regAmount="
+				+ regAmount + ", dob=" + dob + ", plan=" + plan + ", last sub. Date=" + lastSubscriptionPaidDate;
 	}
 
 	@Override
@@ -97,11 +117,9 @@ public class Customer implements Comparable<Customer> {
 	public String getlName() {
 		return lName;
 	}
-//	@Override
-//	public int compareTo(Object o) {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-	
+
+	public LocalDate lastSubscriptionPaidDate() {
+		return lastSubscriptionPaidDate;
+	}
 
 }
