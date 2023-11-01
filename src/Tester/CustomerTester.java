@@ -18,7 +18,11 @@ public class CustomerTester {
 				System.out.println("\n1:Sign up\n2:logg in \n3:Change password\n4:Remove Customer \n5:display all ");
 				System.out.println(
 						"6:sort by email \n7:sort by dob \n8:sort by dob and name \n9:not paid substrion for 3 months");
+<<<<<<< HEAD
 				System.out.println("10 remove cust not paid subscription for 6 months 11:To pay subscription\n0:exit");
+=======
+				System.out.println("10 remove cust not paid subscription for 6 months\n0:exit");
+>>>>>>> 5f592173138b51b05e9feda0dccbe6fdef513e98
 				System.out.print("enter choice:");
 				try {
 					switch (sc.nextInt()) {
@@ -73,7 +77,10 @@ public class CustomerTester {
 					case 10:
 						removeNotPaidSubscription(customerArr);
 						break;
+<<<<<<< HEAD
 					
+=======
+>>>>>>> 5f592173138b51b05e9feda0dccbe6fdef513e98
 
 					case 0:
 						System.out.println("------------Thank you!!!---------");
